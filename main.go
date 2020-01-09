@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"math"
 	"os"
+	"regexp"
 	"time"
 
 	"github.com/ChimeraCoder/anaconda"
@@ -72,13 +73,17 @@ func testTweet(text string) error {
 	return nil
 }
 
+var re = regexp.MustCompile(`\\n`)
+
 func task(name string, index int) error {
 	path := "config/text/" + name + ".txt"
-	ss, err := readlines(path)
+	lines, err := readlines(path)
 	if err != nil {
 		return err
 	}
-	err = tweet(ss[index])
+	line := lines[index]
+	line = re.ReplaceAllString(line, "\r\n")
+	err = tweet(line)
 	return err
 }
 
