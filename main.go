@@ -59,7 +59,7 @@ type Account struct {
 }
 
 func tweet(text string) error {
-	tweet, err := api.PostTweet("botのテスト", nil)
+	tweet, err := api.PostTweet(text, nil)
 	if err != nil {
 		return err
 	}
@@ -78,7 +78,7 @@ func task(name string, index int) error {
 	if err != nil {
 		return err
 	}
-	err = testTweet(ss[index])
+	err = tweet(ss[index])
 	return err
 }
 
